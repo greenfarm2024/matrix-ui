@@ -11,10 +11,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu'; // Add this line
+import {MatToolbarModule} from '@angular/material/toolbar';
+/* import { MatMenuModule } from '@angular/material/menu'; // Add this line
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav'; */
 
 
 
@@ -22,32 +23,34 @@ import { MatSidenavModule } from '@angular/material/sidenav';
   declarations: [],
   imports: [
     CommonModule,
-    MatListModule,
-    MatSidenavModule,
+ /*    MatListModule,
+    MatSidenavModule, */
     MatIconModule,
-    MatToolbarModule,
-    MatMenuModule,
+/*     MatToolbarModule,
+    MatMenuModule, */
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatToolbarModule
   ],
   exports: [
-    MatListModule,
-    MatSidenavModule,
+/*     MatListModule,
+    MatSidenavModule, */
     MatIconModule,
-    MatToolbarModule,
-    MatMenuModule,
+/*     MatToolbarModule,
+    MatMenuModule, */
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatToolbarModule
   ]
 })
 export class SharedModule { }
