@@ -1,9 +1,7 @@
   <mat-toolbar color="primary">
     <span>Matrix</span>
     <span class="example-spacer"></span>
-    <button mat-button routerLink="/dashboard">Dashboard</button>
-    <button mat-button routerLink="/dashboard/users">Users</button>
-    <button mat-button routerLink="/dashboard/reports">Reports</button>
+    <button mat-button *ngFor="let item of menu" [routerLink]="item.redirect">{{item.name}}</button>
     <span class="example-spacer"></span>
     <!-- <button mat-button routerLink="/dashboard">LogOut</button> -->
     <button mat-icon-button class="example-icon" routerLink="/logout" aria-label="Example icon-button with menu icon">

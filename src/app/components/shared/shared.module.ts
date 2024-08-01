@@ -16,6 +16,10 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav'; */
+import {MatTableModule} from '@angular/material/table';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 
 
 
@@ -35,7 +39,11 @@ import { MatSidenavModule } from '@angular/material/sidenav'; */
     ReactiveFormsModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTableModule,
+    MatTooltipModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   exports: [
 /*     MatListModule,
@@ -50,7 +58,11 @@ import { MatSidenavModule } from '@angular/material/sidenav'; */
     ReactiveFormsModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTableModule,
+    MatTooltipModule,
+    MatPaginatorModule,
+    MatSortModule
   ]
 })
 export class SharedModule { }
