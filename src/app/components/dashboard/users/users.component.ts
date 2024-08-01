@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, Sort } from '@angular/material/sort';
+import { UserService } from '../../../services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-users',
@@ -12,24 +14,24 @@ import { MatSort, Sort } from '@angular/material/sort';
 })
 export class UsersComponent implements OnInit {
 
-  listUsers: User[] = [
-    {user: 'admin', firstName: 'Admin', lastName: 'Admin', sex: 'M'},
-    {user: 'migro', firstName: 'Migro', lastName: 'Migro', sex: 'M'},
-    {user: 'coop', firstName: 'Coop', lastName: 'Coop', sex: 'F'},
-    {user: 'aldi', firstName: 'Aldi', lastName: 'Aldi', sex: 'M'},
-    {user: 'migro1', firstName: 'Migro1', lastName: 'Migro1', sex: 'F'},
-    {user: 'kaufman', firstName: 'Kaufman', lastName: 'Kaufman', sex: 'M'}
-  ];
+  listUsers: User[] = [];
+    
 
   displayedColumns: string[] = ['user', 'firstName', 'lastName', 'sex', 'actions'];
-  dataSource = new MatTableDataSource(this.listUsers);
+  dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer) { }
+  constructor(private _liveAnnouncer: LiveAnnouncer, private _userService: UserService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.getUsers();
+  }
+
+  getUsers() {
+    this.listUsers = this._userService.getUser();
+    this.dataSource = new MatTableDataSource(this.listUsers);
   }
 
   ngAfterViewInit() {
@@ -53,6 +55,17 @@ export class UsersComponent implements OnInit {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  deleteUser(index: number) {
+    this._userService.deleteUser(index);
+    this.getUsers();
+
+    this._snackBar.open('The user was successfully deleted', '', {
+      duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
   }
 
 }
