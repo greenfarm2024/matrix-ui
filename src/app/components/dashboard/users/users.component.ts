@@ -6,6 +6,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, Sort } from '@angular/material/sort';
 import { UserService } from '../../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -15,7 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UsersComponent implements OnInit {
 
   listUsers: User[] = [];
-    
+
 
   displayedColumns: string[] = ['user', 'firstName', 'lastName', 'sex', 'actions'];
   dataSource!: MatTableDataSource<any>;
@@ -23,7 +24,10 @@ export class UsersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private _userService: UserService, private _snackBar: MatSnackBar) { }
+  constructor(private _liveAnnouncer: LiveAnnouncer,
+    private _userService: UserService,
+    private _snackBar: MatSnackBar,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getUsers();
@@ -43,9 +47,9 @@ export class UsersComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  
-   /** Announce the change in sort state for assistive technology. */
-   announceSortChange(sortState: Sort) {
+
+  /** Announce the change in sort state for assistive technology. */
+  announceSortChange(sortState: Sort) {
     // This example uses English messages. If your application supports
     // multiple language, you would internationalize these strings.
     // Furthermore, you can customize the message to add additional
@@ -62,10 +66,19 @@ export class UsersComponent implements OnInit {
     this.getUsers();
 
     this._snackBar.open('The user was successfully deleted', '', {
-      duration: 5000,
+      duration: 1500,
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
     });
+  }
+
+  viewUser(index: number) {
+    this.router.navigate(['/dashboard/view-user'], { queryParams: { index } });
+  }
+
+
+  editUser(index: number): void {
+    this.router.navigate(['/dashboard/edit-user'], { queryParams: { index } });
   }
 
 }

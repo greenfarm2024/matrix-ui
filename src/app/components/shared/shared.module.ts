@@ -12,14 +12,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
-/* import { MatMenuModule } from '@angular/material/menu'; // Add this line
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav'; */
 import {MatTableModule} from '@angular/material/table';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import {MatCardModule} from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatSelectModule} from '@angular/material/select';
+import {FormsModule} from '@angular/forms';
+
 
 
 
@@ -27,11 +28,7 @@ import {MatSortModule} from '@angular/material/sort';
   declarations: [],
   imports: [
     CommonModule,
- /*    MatListModule,
-    MatSidenavModule, */
     MatIconModule,
-/*     MatToolbarModule,
-    MatMenuModule, */
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
@@ -43,14 +40,14 @@ import {MatSortModule} from '@angular/material/sort';
     MatTableModule,
     MatTooltipModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatCardModule,
+    MatGridListModule,
+    MatSelectModule,
+    FormsModule
   ],
   exports: [
-/*     MatListModule,
-    MatSidenavModule, */
     MatIconModule,
-/*     MatToolbarModule,
-    MatMenuModule, */
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
@@ -62,7 +59,11 @@ import {MatSortModule} from '@angular/material/sort';
     MatTableModule,
     MatTooltipModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatCardModule,
+    MatGridListModule,
+    MatSelectModule,
+    FormsModule
   ]
 })
 export class SharedModule { }
