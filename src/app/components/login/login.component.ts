@@ -14,8 +14,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private _snackBar: MatSnackBar, private router: Router) {
     this.form = this.fb.group({
-      user: ['', Validators.required],
-      password: ['', Validators.required]
+      user: ['admin', Validators.required],
+      password: ['admin', Validators.required]
     });
   }
 
@@ -48,6 +48,6 @@ export class LoginComponent implements OnInit {
       this.loading = true;
       setTimeout(() => {
         this.router.navigate(['/dashboard']);
-      }, 1500);
+      }, 500);
     }
 }

@@ -75,4 +75,8 @@ export class EditUserComponent implements OnInit {
     });
     this.router.navigate(['/dashboard/users']);
   }
+
+  onCancel(): void {
+    this.router.navigate(['/dashboard/users']); // Navigate to the user list or dashboard
+  }
 }

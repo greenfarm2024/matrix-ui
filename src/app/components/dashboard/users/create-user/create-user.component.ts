@@ -45,4 +45,8 @@ export class CreateUserComponent implements OnInit {
     });
   }
 
+  onCancel(): void {
+    this.router.navigate(['/dashboard/users']); // Navigate to the user list or dashboard
+  }
+
 }
