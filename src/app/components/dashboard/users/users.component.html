@@ -1,6 +1,10 @@
 <mat-spinner *ngIf="loading" class="spinner" diameter="50"></mat-spinner>
 
-<div  *ngIf="!loading" class="container">
+<div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+</div>
+
+<div *ngIf="!errorMessage && !loading" class="container">
 
     <mat-toolbar>
         <span>Users</span>

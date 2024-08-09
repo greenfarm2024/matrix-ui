@@ -20,6 +20,8 @@ export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['userName', 'firstName', 'lastName', 'sex', 'actions'];
   dataSource = new MatTableDataSource<UserDTO>();
 
+  errorMessage: string | null = null;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -44,8 +46,12 @@ export class UsersComponent implements OnInit {
         this.loading = false;
       },
       error: (err: HttpErrorResponse) => {
-        console.log(err);
         this.loading = false;
+        if (err.status === 0) {
+          this.errorMessage = 'Connection refused: Unable to reach the server.';
+        } else {
+          this.errorMessage = 'Error fetching users: ' + err.message;
+        }
       }
     });
   }
