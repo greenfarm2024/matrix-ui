@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { User } from '../../interfaces/user';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
@@ -7,6 +6,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { UserService } from '../../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { UserDTO } from '../../../dto/user';
 
 @Component({
   selector: 'app-users',
@@ -15,10 +15,10 @@ import { Router } from '@angular/router';
 })
 export class UsersComponent implements OnInit {
 
-  listUsers: User[] = [];
+  listUsers: UserDTO[] = [];
 
 
-  displayedColumns: string[] = ['user', 'firstName', 'lastName', 'sex', 'actions'];
+  displayedColumns: string[] = ['userName', 'firstName', 'lastName', 'sex', 'actions'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

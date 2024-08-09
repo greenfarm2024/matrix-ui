@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { UserService } from '../../../../services/user.service';
-import { User } from '../../../interfaces/user';
+import { UserDTO } from '../../../../dto/user';
 
 @Component({
   selector: 'app-edit-user',
@@ -15,7 +15,7 @@ export class EditUserComponent implements OnInit {
   form: FormGroup;
   sex: string[] = ['Male', 'Female'];
   userIndex: number | null = null;
-  user: User | null = null;
+  user: UserDTO | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,7 +25,7 @@ export class EditUserComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {
     this.form = this.formBuilder.group({
-      user: [{ value: '', disabled: true }, Validators.required],
+      userName: [{ value: '', disabled: true }, Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       sex: ['', Validators.required],
@@ -56,7 +56,7 @@ export class EditUserComponent implements OnInit {
 
   editUser(): void {
     if (this.form.valid && this.userIndex !== null) {
-      const updatedUser: User = { ...this.user, ...this.form.getRawValue() };
+      const updatedUser: UserDTO = { ...this.user, ...this.form.getRawValue() };
       this.userService.updateUser(this.userIndex, updatedUser);
       this.router.navigate(['/dashboard/users']);
       this.snackBar.open('The user was successfully updated', '', {

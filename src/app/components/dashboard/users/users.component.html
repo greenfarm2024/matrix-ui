@@ -15,10 +15,10 @@
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
 
                 <!-- User Column -->
-                <ng-container matColumnDef="user">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by user"> User
+                <ng-container matColumnDef="userName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by User name"> User
                     </th>
-                    <td mat-cell *matCellDef="let element"> {{element.user}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
                 </ng-container>
 
                 <!-- First Name Column -->
