@@ -1,4 +1,7 @@
-<div class="container">
+<mat-spinner *ngIf="loading" class="spinner" diameter="50"></mat-spinner>
+
+<div  *ngIf="!loading" class="container">
+
     <mat-toolbar>
         <span>Users</span>
         <div class="example-spacer"></div>
@@ -16,7 +19,8 @@
 
                 <!-- User Column -->
                 <ng-container matColumnDef="userName">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by User name"> User
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by User name">
+                        User name
                     </th>
                     <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
                 </ng-container>
@@ -48,7 +52,7 @@
                         <a class="pointer" (click)="viewUser(i)" style="color: #1878b0" matTooltip="View user">
                             <mat-icon>search</mat-icon>
                         </a>
-                        <a class="pointer"  (click)="editUser(i)"  style="color: #1f516f" matTooltip="Edit user">
+                        <a class="pointer" (click)="editUser(i)" style="color: #1f516f" matTooltip="Edit user">
                             <mat-icon>edit</mat-icon>
                         </a>
                         <a class="pointer" (click)="deleteUser(i)" style="color: #e15639" matTooltip="Delete user">
@@ -61,7 +65,7 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
 
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of users">
+            <mat-paginator [pageSizeOptions]="[2, 10, 20]" showFirstLastButtons aria-label="Select page of users">
             </mat-paginator>
         </div>
 

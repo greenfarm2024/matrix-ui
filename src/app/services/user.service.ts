@@ -26,13 +26,6 @@ export class UserService {
 
   constructor(private readonly http: HttpClient) { }
 
-  getUser() {
-    this.getAllUsers().subscribe(users => {
-      this.listUsers = users;
-    });
-    return this.listUsers.slice();
-  }
-
   getUserByIndex(index: number) {
     return this.listUsers[index];
   }
@@ -52,10 +45,6 @@ export class UserService {
       console.error(`User index ${index} is out of bounds.`);
     }
   }
-
-/*   getAllUsers(): Observable<UserDTO[]> {
-		return this.http.get<UserDTO[]>(userUrl);
-	} */
 
     getAllUsers(): Observable<UserDTO[]> {
       return this.http.get<UserDTO[]>(userUrl);

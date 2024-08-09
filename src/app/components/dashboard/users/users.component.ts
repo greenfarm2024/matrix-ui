@@ -7,6 +7,7 @@ import { UserService } from '../../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserDTO } from '../../../dto/user';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-users',
@@ -14,12 +15,10 @@ import { UserDTO } from '../../../dto/user';
   styleUrl: './users.component.css'
 })
 export class UsersComponent implements OnInit {
-
+  loading = false;
   listUsers: UserDTO[] = [];
-
-
   displayedColumns: string[] = ['userName', 'firstName', 'lastName', 'sex', 'actions'];
-  dataSource!: MatTableDataSource<any>;
+  dataSource = new MatTableDataSource<UserDTO>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -30,12 +29,25 @@ export class UsersComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getAllUsers();
   }
 
-  getUsers() {
-    this.listUsers = this._userService.getUser();
-    this.dataSource = new MatTableDataSource(this.listUsers);
+  getAllUsers(): void {
+    this.loading = true;
+    this._userService.getAllUsers().subscribe({
+      next: (res: UserDTO[]) => {
+        this.listUsers = res;
+        this.dataSource.data = res;
+        // Assign paginator and sort after data is set
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.loading = false;
+      },
+      error: (err: HttpErrorResponse) => {
+        console.log(err);
+        this.loading = false;
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -63,7 +75,7 @@ export class UsersComponent implements OnInit {
 
   deleteUser(index: number) {
     this._userService.deleteUser(index);
-    this.getUsers();
+    this.getAllUsers;
 
     this._snackBar.open('The user was successfully deleted', '', {
       duration: 1500,
