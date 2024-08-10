@@ -28,7 +28,9 @@ export class UsersComponent implements OnInit {
   constructor(private _liveAnnouncer: LiveAnnouncer,
     private _userService: UserService,
     private _snackBar: MatSnackBar,
-    private router: Router) { }
+    private router: Router) { 
+      this.getAllUsers();
+    }
 
   ngOnInit(): void {
     this.getAllUsers();
