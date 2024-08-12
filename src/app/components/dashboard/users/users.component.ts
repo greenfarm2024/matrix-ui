@@ -17,10 +17,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class UsersComponent implements OnInit {
   loading = false;
   listUsers: UserDTO[] = [];
-  displayedColumns: string[] = ['userName', 'firstName', 'lastName', 'sex', 'actions'];
+  displayedColumns: string[] = ['userId', 'userName', 'firstName', 'lastName', 'sex', 'actions'];
   dataSource = new MatTableDataSource<UserDTO>();
 
-  errorMessage: string | null = null;
+  errorMessage = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -28,9 +28,9 @@ export class UsersComponent implements OnInit {
   constructor(private _liveAnnouncer: LiveAnnouncer,
     private _userService: UserService,
     private _snackBar: MatSnackBar,
-    private router: Router) { 
-      this.getAllUsers();
-    }
+    private router: Router) {
+    this.getAllUsers();
+  }
 
   ngOnInit(): void {
     this.getAllUsers();
@@ -61,6 +61,10 @@ export class UsersComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    // Set the default sort by userId in descending order
+  /*   this.sort.sort({ id: 'userId', start: 'desc', disableClear: true });
+    this.dataSource.sort = this.sort; */
   }
 
   applyFilter(event: Event) {

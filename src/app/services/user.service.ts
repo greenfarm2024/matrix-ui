@@ -34,8 +34,8 @@ export class UserService {
     this.listUsers.splice(index, 1);
   }
 
-  addUser(user: UserDTO) {
-    this.listUsers.unshift(user);
+  addUser(user: UserDTO): Observable<UserDTO> {
+    return this.http.post<UserDTO>(`${baseUrl}adduser`, user);
   }
 
   updateUser(index: number, updatedUser: UserDTO): void {

@@ -21,6 +21,15 @@
         <div class="mat-elevation-z8">
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
 
+                
+                <!-- User Column -->
+                <ng-container matColumnDef="userId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort User by ID">
+                        User ID
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.userId}} </td>
+                </ng-container>
+
                 <!-- User Column -->
                 <ng-container matColumnDef="userName">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by User name">
@@ -69,7 +78,7 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
 
-            <mat-paginator [pageSizeOptions]="[2, 10, 20]" showFirstLastButtons aria-label="Select page of users">
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of users">
             </mat-paginator>
         </div>
 
