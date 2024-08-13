@@ -38,7 +38,7 @@ export class UsersComponent implements OnInit {
 
   getAllUsers(): void {
     this.loading = true;
-    this._userService.getAllUsers().subscribe({
+    this._userService.fetchAllUsers().subscribe({
       next: (res: UserDTO[]) => {
         this.listUsers = res;
         this.dataSource.data = res;
@@ -85,15 +85,24 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  deleteUser(index: number) {
-    this._userService.deleteUser(index);
-    this.getAllUsers;
-
-    this._snackBar.open('The user was successfully deleted', '', {
-      duration: 1500,
-      horizontalPosition: 'center',
-      verticalPosition: 'bottom',
-    });
+  deleteUser(userId: number) {
+    this._userService.deleteUser(userId).subscribe({
+      next: () => {
+        this.getAllUsers();
+        this._snackBar.open('The user was successfully deleted', '', {
+          duration: 1500,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });
+      },
+      error: (err) => {
+        this._snackBar.open('Failed to delete user: ' + err.message, '', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });
+      }
+    }); 
   }
 
   viewUser(index: number) {
@@ -101,8 +110,8 @@ export class UsersComponent implements OnInit {
   }
 
 
-  editUser(index: number): void {
-    this.router.navigate(['/dashboard/edit-user'], { queryParams: { index } });
+  editUser(userId: number): void {
+    this.router.navigate(['/dashboard/create-user'], { queryParams: { userId } });
   }
 
 }

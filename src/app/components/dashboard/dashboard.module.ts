@@ -10,7 +10,6 @@ import { UsersComponent } from './users/users.component';
 import { ReportsComponent } from './reports/reports.component';
 import { CreateUserComponent } from './users/create-user/create-user.component';
 import { ViewUserComponent } from './users/view-user/view-user.component';
-import { EditUserComponent } from './users/edit-user/edit-user.component';
 
 
 @NgModule({
@@ -21,8 +20,7 @@ import { EditUserComponent } from './users/edit-user/edit-user.component';
     UsersComponent,
     ReportsComponent,
     CreateUserComponent,
-    ViewUserComponent,
-    EditUserComponent
+    ViewUserComponent
   ],
   imports: [
     CommonModule,
