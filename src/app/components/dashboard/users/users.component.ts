@@ -86,9 +86,13 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(userId: number) {
+    if (confirm('Are you sure you want to delete this user?')) {
+      this.loading = true;
     this._userService.deleteUser(userId).subscribe({
       next: () => {
-        this.getAllUsers();
+        this.loading = false;
+       this.getAllUsers();
+        this.listUsers = this.listUsers.filter(user => user.userId !== userId);
         this._snackBar.open('The user was successfully deleted', '', {
           duration: 1500,
           horizontalPosition: 'center',
@@ -96,6 +100,7 @@ export class UsersComponent implements OnInit {
         });
       },
       error: (err) => {
+        this.loading = false;
         this._snackBar.open('Failed to delete user: ' + err.message, '', {
           duration: 3000,
           horizontalPosition: 'center',
@@ -103,6 +108,7 @@ export class UsersComponent implements OnInit {
         });
       }
     }); 
+    }
   }
 
   viewUser(index: number) {

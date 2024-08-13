@@ -4,7 +4,7 @@
     </mat-toolbar>
 
     <mat-card style="margin-top: 10px;" appearance="outlined">
-        <form [formGroup]="form" (ngSubmit)="submitForm()">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <mat-grid-list cols="4" rowHeight="70px">
                 <mat-grid-tile [colspan]="1" [rowspan]="1">
                     <mat-form-field class="width">
