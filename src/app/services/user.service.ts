@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { UserDTO } from '../dto/user';
 import { Observable } from 'rxjs';
@@ -13,23 +13,80 @@ export class UserService {
 
   constructor(private readonly http: HttpClient) { }
 
-  addUser(user: UserDTO): Observable<UserDTO> {
-    return this.http.post<UserDTO>(`${baseUrl}adduser`, user);
+  register(token: string, user: UserDTO): Observable<UserDTO> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post<UserDTO>(`${baseUrl}admin/register`, user, { headers });
   }
 
-  fetchAllUsers(): Observable<UserDTO[]> {
-    return this.http.get<UserDTO[]>(`${baseUrl}fetchallusers`);
+  getAllUsers(token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<any>(`${baseUrl}admin/getallusers`, { headers });
   }
 
-  updateUser(user: UserDTO): Observable<UserDTO> {
-    return this.http.put<UserDTO>(`${baseUrl}updateuser/${user.userId}`, user);
+  updateUser(token: string, user: UserDTO): Observable<UserDTO> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.put<UserDTO>(`${baseUrl}admin/updateuser`, user, { headers });
   }
 
-  fetchUserById(userId: string): Observable<UserDTO> {
-    return this.http.get<UserDTO>(`${baseUrl}fetchuserbyid/${userId}`);
+  getUserById(token: string, userId: string): Observable<UserDTO> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<UserDTO>(`${baseUrl}admin/getuserbyid/${userId}`, { headers });
   }
 
-  deleteUser(userId: number): Observable<void> {
-    return this.http.delete<void>(`${baseUrl}deleteuser/${userId}`);
+  deleteUser(token: string, userId: number): Observable<void> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.delete<void>(`${baseUrl}admin/deleteuser/${userId}`, { headers });
   }
+
+  login(userName: string, password: string): Observable<any> {
+    const url = `${baseUrl}auth/login`;
+    return this.http.post<any>(url, { userName, password });
+  }
+
+
+    /***AUTHEMNTICATION METHODS */
+    logOut():void{
+      if(typeof localStorage !== 'undefined'){
+        localStorage.removeItem('token')
+        localStorage.removeItem('role')
+      }
+    }
+  
+    isAuthenticated(): boolean {
+      if(typeof localStorage !== 'undefined'){
+        const token = localStorage.getItem('token');
+        return !!token;
+      }
+      return false;
+  
+    }
+  
+    isAdmin(): boolean {
+      if(typeof localStorage !== 'undefined'){
+        const role = localStorage.getItem('role');
+        return role === 'ADMIN'
+      }
+      return false;
+  
+    }
+  
+    isUser(): boolean {
+      if(typeof localStorage !== 'undefined'){
+        const role = localStorage.getItem('role');
+        return role === 'USER'
+      }
+      return false;
+  
+    }
+  
 }

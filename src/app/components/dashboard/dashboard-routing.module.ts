@@ -6,16 +6,17 @@ import { UsersComponent } from './users/users.component';
 import { ReportsComponent } from './reports/reports.component';
 import { CreateUserComponent } from './users/create-user/create-user.component';
 import { ViewUserComponent } from './users/view-user/view-user.component';
+import { usersGuard } from '../../users.guard';
 
 
 const routes: Routes = [
   {
     path: '', component: DashboardComponent, children: [
-      { path: '', component: StartComponent },
-      { path: 'users', component: UsersComponent },
-      { path: 'reports', component: ReportsComponent },
-      { path: 'create-user', component: CreateUserComponent },
-      { path: 'view-user', component: ViewUserComponent },
+      { path: '', component: StartComponent, canActivate: [usersGuard] },
+      { path: 'users', component: UsersComponent, canActivate: [usersGuard] },
+      { path: 'reports', component: ReportsComponent, canActivate: [usersGuard] },
+      { path: 'create-user', component: CreateUserComponent, canActivate: [usersGuard] },
+      { path: 'view-user', component: ViewUserComponent, canActivate: [usersGuard] },
     ]
   },
 ];

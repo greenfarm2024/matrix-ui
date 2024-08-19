@@ -16,8 +16,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class UsersComponent implements OnInit {
   loading = false;
-  listUsers: UserDTO[] = [];
-  displayedColumns: string[] = ['userId', 'userName', 'firstName', 'lastName', 'sex', 'actions'];
+  userList: UserDTO[] = [];
+  displayedColumns: string[] = ['userId', 'userName', 'firstName', 'lastName', 'sex', 'role', 'actions'];
   dataSource = new MatTableDataSource<UserDTO>();
 
   errorMessage = '';
@@ -38,10 +38,11 @@ export class UsersComponent implements OnInit {
 
   getAllUsers(): void {
     this.loading = true;
-    this._userService.fetchAllUsers().subscribe({
-      next: (res: UserDTO[]) => {
-        this.listUsers = res;
-        this.dataSource.data = res;
+    const token: any = localStorage.getItem('token');
+    this._userService.getAllUsers(token).subscribe({
+      next: (res: any) => {
+        this.userList = res.userList;
+        this.dataSource.data = res.userList;
         // Assign paginator and sort after data is set
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -88,11 +89,12 @@ export class UsersComponent implements OnInit {
   deleteUser(userId: number) {
     if (confirm('Are you sure you want to delete this user?')) {
       this.loading = true;
-    this._userService.deleteUser(userId).subscribe({
+      const token: any = localStorage.getItem('token');
+    this._userService.deleteUser(token, userId).subscribe({
       next: () => {
         this.loading = false;
        this.getAllUsers();
-        this.listUsers = this.listUsers.filter(user => user.userId !== userId);
+        this.userList = this.userList.filter(user => user.userId !== userId);
         this._snackBar.open('The user was successfully deleted', '', {
           duration: 1500,
           horizontalPosition: 'center',
@@ -115,8 +117,7 @@ export class UsersComponent implements OnInit {
     this.router.navigate(['/dashboard/view-user'], { queryParams: { index } });
   }
 
-
-  editUser(userId: number): void {
+  editUser(userId: string): void {
     this.router.navigate(['/dashboard/create-user'], { queryParams: { userId } });
   }
 

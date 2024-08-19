@@ -2,7 +2,11 @@
       <img src="../../../assets/img/logo.jpg" alt="Matrix" class="logo">
     <span>Matrix</span>
     <span class="example-spacer"></span>
-    <button mat-button *ngFor="let item of menu" [routerLink]="item.redirect">{{item.name}}</button>
+    <ng-container *ngFor="let item of menu">
+      <button mat-button *ngIf="isAuthenticated" [routerLink]="item.redirect">
+        {{item.name}}
+      </button>
+    </ng-container>
     <span class="example-spacer"></span>
     <!-- <button mat-button routerLink="/dashboard">LogOut</button> -->
     <button mat-icon-button class="example-icon" routerLink="/logout" aria-label="Example icon-button with menu icon">

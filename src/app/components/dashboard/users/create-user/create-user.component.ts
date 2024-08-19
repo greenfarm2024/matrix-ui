@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserDTO } from '../../../../dto/user';
 import { ErrorHandlerService } from '../../../../services/ErrorHandlerService';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -15,8 +16,10 @@ import { ErrorHandlerService } from '../../../../services/ErrorHandlerService';
 export class CreateUserComponent implements OnInit {
   loading = false;
   sex: string[] = ['Male', 'Female', 'Other'];
+  roles: string[] = ['ADMIN', 'USER'];
   form!: FormGroup;
   errorMessage = '';
+  userId: any;
 
   isEditMode = false;
   @Input() user!: UserDTO;  // Optional, if passed, it indicates edit mode
@@ -32,22 +35,51 @@ export class CreateUserComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
     private errorHandler: ErrorHandlerService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.initializeForm();
-    if (this.user) {
-      this.isEditMode = true;
-      this.oldUser = { ...this.user };
-      this.form.patchValue(this.user);
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.userId = params['userId'];
+    });
+
+    if (this.userId) {
+      this.getUserById(this.userId);
+    } else {
+      this.initializeForm();
     }
+  }
+
+  getUserById(userId: string): void {
+    this.loading = true;
+    const token: any = localStorage.getItem('token');
+    this.userService.getUserById(token, userId).subscribe({
+      next: (res: any) => {
+        this.oldUser = res;
+        this.loading = false;
+        // Proceed only after user data is fetched
+        this.initializeForm();
+        this.isEditMode = true;
+        this.form.patchValue(this.oldUser);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.loading = false;
+        if (err.status === 0) {
+          this.errorMessage = 'Connection refused: Unable to reach the server.';
+        } else {
+          this.errorMessage = 'Error fetching users: ' + err.message;
+        }
+      }
+    });
   }
 
   private initializeForm(): void {
     this.form = this.fb.group({
+      userId: [''],
       userName: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
+      password: ['', Validators.required],
+      role: ['', Validators.required],
       sex: ['', Validators.required]
     });
   }
@@ -63,12 +95,13 @@ export class CreateUserComponent implements OnInit {
     if (this.isEditMode) {
       this.updateUser(user);
     } else {
-      this.addUser(user);
+      this.register(user);
     }
   }
 
-  private addUser(user: UserDTO): void {
-    this.userService.addUser(user).subscribe({
+  private register(user: UserDTO): void {
+    const token: any = localStorage.getItem('token');
+    this.userService.register(token, user).subscribe({
       next: (addedUser) => {
         this.loading = false;
         this.snackBar.open('User added successfully!', '', {
@@ -87,7 +120,8 @@ export class CreateUserComponent implements OnInit {
   }
 
   private updateUser(user: UserDTO): void {
-    this.userService.updateUser(user).subscribe({
+    const token: any = localStorage.getItem('token');
+    this.userService.updateUser(token, user).subscribe({
       next: (updatedUser) => {
         this.loading = false;
         this.snackBar.open('User updated successfully!', '', {
