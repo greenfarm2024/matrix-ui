@@ -17,7 +17,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class UsersComponent implements OnInit {
   loading = false;
   userList: UserDTO[] = [];
-  displayedColumns: string[] = ['userId', 'userName', 'firstName', 'lastName', 'sex', 'role', 'actions'];
+  displayedColumns: string[] = ['userId', 'userName', 'firstName', 'lastName', 'sex', 'role', 'groupe', 'actions'];
   dataSource = new MatTableDataSource<UserDTO>();
 
   errorMessage = '';

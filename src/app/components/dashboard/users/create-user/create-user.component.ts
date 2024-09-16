@@ -17,6 +17,7 @@ export class CreateUserComponent implements OnInit {
   loading = false;
   sex: string[] = ['Male', 'Female', 'Other'];
   roles: string[] = ['ADMIN', 'USER'];
+  groupes: string[] = ['C', 'G', 'S', 'M', 'U'];
   form!: FormGroup;
   errorMessage = '';
   userId: any;
@@ -80,6 +81,7 @@ export class CreateUserComponent implements OnInit {
       lastName: ['', Validators.required],
       password: ['', Validators.required],
       role: ['', Validators.required],
+      groupe: ['', Validators.required],
       sex: ['', Validators.required]
     });
   }

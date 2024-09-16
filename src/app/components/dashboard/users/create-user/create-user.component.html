@@ -51,6 +51,14 @@
                     </mat-grid-tile>
                     <mat-grid-tile [colspan]="1" [rowspan]="1">
                         <mat-form-field class="width">
+                            <mat-label>Groupe</mat-label>
+                            <mat-select formControlName="groupe">
+                                <mat-option *ngFor="let item of groupes" [value]="item">{{item}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <mat-form-field class="width">
                             <mat-label>Sex</mat-label>
                             <mat-select formControlName="sex">
                                 <mat-option *ngFor="let item of sex" [value]="item">{{item}}</mat-option>

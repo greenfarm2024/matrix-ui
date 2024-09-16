@@ -4,7 +4,7 @@ import { environment } from '../environments/environment';
 import { UserDTO } from '../dto/user';
 import { Observable } from 'rxjs';
 
-const baseUrl = `${environment.apiUrl}user/`;
+const baseUrl = `${environment.apiUrl}admin/`;
 
 @Injectable({
   providedIn: 'root'
@@ -24,28 +24,28 @@ export class UserService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get<any>(`${baseUrl}admin/getallusers`, { headers });
+    return this.http.get<any>(`${baseUrl}getallusers`, { headers });
   }
 
   updateUser(token: string, user: UserDTO): Observable<UserDTO> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.put<UserDTO>(`${baseUrl}admin/updateuser`, user, { headers });
+    return this.http.put<UserDTO>(`${baseUrl}updateuser`, user, { headers });
   }
 
   getUserById(token: string, userId: string): Observable<UserDTO> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get<UserDTO>(`${baseUrl}admin/getuserbyid/${userId}`, { headers });
+    return this.http.get<UserDTO>(`${baseUrl}getuserbyid/${userId}`, { headers });
   }
 
   deleteUser(token: string, userId: number): Observable<void> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.delete<void>(`${baseUrl}admin/deleteuser/${userId}`, { headers });
+    return this.http.delete<void>(`${baseUrl}deleteuser/${userId}`, { headers });
   }
 
   login(userName: string, password: string): Observable<any> {
