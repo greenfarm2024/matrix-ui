@@ -7,8 +7,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  templateUrl: './login-page.component.html',
+  styleUrl: './login-page.component.css'
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private _snackBar: MatSnackBar, private router: Router, private _userService: UserService) {
     this.form = this.fb.group({
-      user: ['admin', Validators.required],
-      password: ['admin', Validators.required]
+      user: ['user', Validators.required],
+      password: ['user', Validators.required]
     });
   }
 

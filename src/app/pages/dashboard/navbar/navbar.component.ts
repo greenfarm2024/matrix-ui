@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../../services/menu.service';
-import { Menu } from '../../interfaces/menu';
+import { Menu } from '../../../entities/menu';
 import { UserService } from '../../../services/user.service';
-import { UserDTO } from '../../../dto/user';
+import { UserDTO } from '../../../entities/user';
 import { Observable } from 'rxjs';
 
 

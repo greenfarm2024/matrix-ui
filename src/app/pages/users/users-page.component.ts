@@ -3,16 +3,16 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, Sort } from '@angular/material/sort';
-import { UserService } from '../../../services/user.service';
+import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { UserDTO } from '../../../dto/user';
+import { UserDTO } from '../../entities/user';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrl: './users.component.css'
+  templateUrl: './users-page.component.html',
+  styleUrl: './users-page.component.css'
 })
 export class UsersComponent implements OnInit {
   loading = false;

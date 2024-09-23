@@ -7,11 +7,11 @@ import { provideHttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { SharedModule } from './components/shared/shared.module';
+import { SharedModule } from './common/shared/shared.module';
 
 
-// Components
-import { LoginComponent } from './components/login/login.component';
+// Pages
+import { LoginComponent } from './pages/login-page/login-page.component';
 
 @NgModule({
   declarations: [

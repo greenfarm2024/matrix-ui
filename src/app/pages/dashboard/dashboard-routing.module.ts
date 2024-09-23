@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
-import { StartComponent } from './start/start.component';
-import { UsersComponent } from './users/users.component';
+import { StartComponent } from './start-page/start-page.component';
+import { UsersComponent } from '../users/users-page.component';
 import { ReportsComponent } from './reports/reports.component';
-import { CreateUserComponent } from './users/create-user/create-user.component';
-import { ViewUserComponent } from './users/view-user/view-user.component';
+import { CreateUserComponent } from '../users/create-user-page/create-user-page.component';
+import { ViewUserComponent } from '../users/view-user-page/view-user-page.component';
 import { usersGuard } from '../../users.guard';
 
 

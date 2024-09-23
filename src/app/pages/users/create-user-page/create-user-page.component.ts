@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../../../../services/user.service';
+import { UserService } from '../../../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserDTO } from '../../../../dto/user';
-import { ErrorHandlerService } from '../../../../services/ErrorHandlerService';
+import { UserDTO } from '../../../entities/user';
+import { ErrorHandlerService } from '../../../services/ErrorHandlerService';
 import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
   selector: 'app-create-user',
-  templateUrl: './create-user.component.html',
-  styleUrls: ['./create-user.component.css']
+  templateUrl: './create-user-page.component.html',
+  styleUrls: ['./create-user-page.component.css']
 })
 export class CreateUserComponent implements OnInit {
   loading = false;
