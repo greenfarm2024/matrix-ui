@@ -6,7 +6,7 @@ import { usersGuard } from './users.guard';
 export const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
-  {path: 'dashboard', loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule), canActivate: [usersGuard]},
+  {path: 'dashboard', loadChildren: () => import('./pages/dashboard-page/dashboard.module').then(m => m.DashboardModule), canActivate: [usersGuard]},
   {path: '**', redirectTo: 'login', pathMatch: 'full'}
 ];
 

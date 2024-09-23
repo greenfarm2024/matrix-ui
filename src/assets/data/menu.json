@@ -8,6 +8,10 @@
         "redirect": "/dashboard/users"
     },
     {
+        "name": "Article",
+        "redirect": "/dashboard/article"
+    },
+    {
         "name": "Reports",
         "redirect": "/dashboard/reports"
     }
