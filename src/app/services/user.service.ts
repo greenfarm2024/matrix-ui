@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { UserDTO } from '../dto/user';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 
 const baseUrl = `${environment.apiUrl}admin/`;
 
@@ -53,6 +53,25 @@ export class UserService {
     return this.http.post<any>(url, { userName, password });
   }
 
+  getUserInfo(): Observable<UserDTO | null> {
+    const token = localStorage.getItem('token'); // Ensure the token is retrieved from a secure place
+    if (!token) {
+      console.error('Token not found');
+      return of(null);
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<UserDTO>(`${baseUrl}auth/userinfo`, { headers })
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          console.error('Error fetching user info:', err.message);
+          return of(null);
+        })
+      );
+  }
 
     /***AUTHEMNTICATION METHODS */
     logOut():void{

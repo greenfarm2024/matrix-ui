@@ -8,6 +8,9 @@
       </button>
     </ng-container>
     <span class="example-spacer"></span>
+
+    <span *ngIf="isAuthenticated">Welcome, {{firstName}}</span>
+
     <!-- <button mat-button routerLink="/dashboard">LogOut</button> -->
     <button mat-icon-button class="example-icon" routerLink="/logout" aria-label="Example icon-button with menu icon">
       <mat-icon>logout</mat-icon>
