@@ -1,1 +1,160 @@
-<p>article-page works!</p>
+<mat-spinner *ngIf="loading" class="spinner" diameter="50"></mat-spinner>
+
+<div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+</div>
+
+<div *ngIf="!errorMessage && !loading" class="container">
+
+    <mat-toolbar>
+        <span>Articles</span>
+        <div class="example-spacer"></div>
+        <button mat-raised-button color="primary" routerLink="/dashboard/create-article">Add</button>
+    </mat-toolbar>
+
+
+
+    <div *ngIf="articleList.length > 0">
+
+        <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input autocomplete="off">
+        </mat-form-field>
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+                <!-- Article ID Column -->
+                <ng-container matColumnDef="articleId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort Article by ID">
+                        Article ID
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.articleId}} </td>
+                </ng-container>
+
+                <!-- Client ID Column -->
+                <ng-container matColumnDef="clientId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort Client by ID">
+                        Article ID
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.clientId}} </td>
+                </ng-container>
+
+                <!-- skuInt Column -->
+                <ng-container matColumnDef="skuInt">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by SKU intern">
+                        SKU intern </th>
+                    <td mat-cell *matCellDef="let element"> {{element.skuInt}} </td>
+                </ng-container>
+
+
+                <!-- skuExt Column -->
+                <ng-container matColumnDef="skuExt">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by SKU extern">
+                        SKU extern </th>
+                    <td mat-cell *matCellDef="let element"> {{element.skuExt}} </td>
+                </ng-container>
+
+                <!-- artNameDe Column -->
+                <ng-container matColumnDef="artNameDe">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Name DE">
+                        Name DE </th>
+                    <td mat-cell *matCellDef="let element"> {{element.artNameDe}} </td>
+                </ng-container>
+
+                <!-- artNameEn Column -->
+                <ng-container matColumnDef="artNameEn">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Name EN">
+                        Name EN </th>
+                    <td mat-cell *matCellDef="let element"> {{element.artNameEn}} </td>
+                </ng-container>
+
+                <!-- artNameTh Column -->
+                <ng-container matColumnDef="artNameTh">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Name TH">
+                        Name TH </th>
+                    <td mat-cell *matCellDef="let element"> {{element.artNameTh}} </td>
+                </ng-container>
+
+                <!-- saleUnit Column -->
+                <ng-container matColumnDef="saleUnit">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Sales Unit">
+                        Sales Unit </th>
+                    <td mat-cell *matCellDef="let element"> {{element.saleUnit}} </td>
+                </ng-container>
+
+                <!-- salePrice Column -->
+                <ng-container matColumnDef="salePrice">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Sale Price">
+                        Sale price </th>
+                    <td mat-cell *matCellDef="let element"> {{element.salePrice}} </td>
+                </ng-container>
+
+                <!-- tva Column -->
+                <ng-container matColumnDef="tva">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by TVA">
+                        TVA </th>
+                    <td mat-cell *matCellDef="let element"> {{element.tva}} </td>
+                </ng-container>
+
+                <!-- undelSupp1 Column -->
+                <ng-container matColumnDef="undelSupp1">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by undelSupp1">
+                        UD1 </th>
+                    <td mat-cell *matCellDef="let element" [ngClass]="{'negative-value': element.undelSupp1 < 0}"> {{element.undelSupp1}} </td>
+                </ng-container>
+
+                <!-- undelSupp2 Column -->
+                <ng-container matColumnDef="undelSupp2">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by undelSupp2">
+                        UD2 </th>
+                    <td mat-cell *matCellDef="let element"> {{element.undelSupp2}} </td>
+                </ng-container>
+
+                <!-- undelSupp3 Column -->
+                <ng-container matColumnDef="undelSupp3">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by undelSupp3">
+                        UD3 </th>
+                    <td mat-cell *matCellDef="let element"> {{element.undelSupp3}} </td>
+                </ng-container>
+
+                <!-- createdDate Column -->
+                <ng-container matColumnDef="createdDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by createdDate">
+                        Created Date </th>
+                    <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
+                </ng-container>
+
+                <!-- createdBy Column -->
+                <ng-container matColumnDef="createdBy">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by createdBy">
+                        Created By </th>
+                    <td mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
+                </ng-container>
+
+                <!-- lastUpdatedDate Column -->
+                <ng-container matColumnDef="lastUpdatedDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header
+                        sortActionDescription="Sort by lastUpdatedDate">
+                        Last Updated Date </th>
+                    <td mat-cell *matCellDef="let element"> {{element.lastUpdatedDate}} </td>
+                </ng-container>
+
+                <!-- updatedBy Column -->
+                <ng-container matColumnDef="updatedBy">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by updatedBy">
+                        Update dBy </th>
+                    <td mat-cell *matCellDef="let element"> {{element.updatedBy}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of users">
+            </mat-paginator>
+        </div>
+
+    </div>
+
+    <h2 *ngIf="articleList.length === 0">No users found</h2>
+
+</div>
