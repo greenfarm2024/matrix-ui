@@ -8,6 +8,7 @@ import { CreateUserComponent } from '../users-page/create-user-page/create-user-
 import { ViewUserComponent } from '../users-page/view-user-page/view-user-page.component';
 import { usersGuard } from '../../users.guard';
 import { ArticlePageComponent } from '../article-page/article-page.component';
+import { AddEditArticlePageComponent } from '../article-page/add-edit-article-page/add-edit-article-page.component';
 
 
 const routes: Routes = [
@@ -15,9 +16,10 @@ const routes: Routes = [
     path: '', component: DashboardComponent, children: [
       { path: '', component: StartComponent, canActivate: [usersGuard] },
       { path: 'users', component: UsersComponent, canActivate: [usersGuard] },
-      { path: 'article', component: ArticlePageComponent, canActivate: [usersGuard] },
-      { path: 'reports', component: ReportsComponent, canActivate: [usersGuard] },
       { path: 'create-user', component: CreateUserComponent, canActivate: [usersGuard] },
+      { path: 'article', component: ArticlePageComponent, canActivate: [usersGuard] },
+      { path: 'add-edit-article', component: AddEditArticlePageComponent, canActivate: [usersGuard] },
+      { path: 'reports', component: ReportsComponent, canActivate: [usersGuard] },
       { path: 'view-user', component: ViewUserComponent, canActivate: [usersGuard] },
     ]
   },

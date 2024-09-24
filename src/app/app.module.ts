@@ -12,11 +12,13 @@ import { SharedModule } from './common/shared/shared.module';
 
 // Pages
 import { LoginComponent } from './pages/login-page/login-page.component';
+import { AddEditArticlePageComponent } from './pages/article-page/add-edit-article-page/add-edit-article-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    AddEditArticlePageComponent
   ],
   imports: [
     BrowserModule,
